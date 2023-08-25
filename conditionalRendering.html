@@ -25,7 +25,6 @@
 
         <div v-show="showBooks">
             <ul>
-                <!--  -->
                 <div v-if="filtered">
                     <li v-for="book in favBooks" :class="{ fav: book.isFav }" @click="toggleFav(book)">
                         <img :src="book.img" :alt="book.title">
