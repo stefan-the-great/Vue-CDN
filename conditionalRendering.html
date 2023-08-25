@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS CDN Usage - Conditional Rendering</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Vue Book List App</h1>
+    <hr>
+    <div id="app">
+        <button @click="changeShowBooks" :class="{ hidden: showBooks, shown: !showBooks}">
+            <div v-if="showBooks">Hide Books</div>
+            <div v-else>Show Books</div>
+        </button>
+
+        <button @click="showFavBooks" :class="{ hidden: !filtered, shown: filtered}">
+            <div v-if="filtered">Show All Books</div>
+            <div v-else>Show Favourite Books</div>
+        </button>
+
+        <div v-show="showBooks">
+            <ul>
+                <!--  -->
+                <div v-if="filtered">
+                    <li v-for="book in favBooks" :class="{ fav: book.isFav }" @click="toggleFav(book)">
+                        <img :src="book.img" :alt="book.title">
+                        <h3>{{book.title}}</h3>
+                        <p>{{book.author}}</p>
+                    </li>
+                </div>
+
+                <div v-else>
+                    <li v-for="book in bookList" :class="{ fav: book.isFav }" @click="toggleFav(book)">
+                        <img :src="book.img" :alt="book.title">
+                        <h3>{{book.title}}</h3>
+                        <p>{{book.author}}</p>
+                    </li>
+                </div>
+
+            </ul>
+        </div>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
