@@ -4,18 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue JS CDN Usage</title>
+    <title>Vue JS CDN Usage - Conditional Rendering</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Hello World</h1>
+    <h1>Vue Book List App</h1>
+    <hr>
     <div id="app">
-        <p>{{title}} - {{author}} - {{age}}</p>
+        <!-- Show/Hide all books button -->
+        <button @click="changeShowBooks" :class="{ hidden: showBooks, shown: !showBooks}">
+            <div v-if="showBooks">Hide Books</div>
+            <div v-else>Show Books</div>
+        </button>
 
-        <button v-on:click="age++">Increase Age</button>
-        <button v-on:click="age--">Decrease Age</button>
-        <button @click="changeTitle">Change Title</b>
+        <!-- Show/Hide favorite books button -->
+        <button @click="showFavBooks" :class="{ hidden: !filtered, shown: filtered}">
+            <div v-if="filtered">Show All Books</div>
+            <div v-else>Show Favourite Books</div>
+        </button>
+
+        <!-- Display books dynamically -->
+        <div v-show="showBooks">
+            <ul>
+                <!-- Show only favorite books -->
+                <div v-if="filtered">
+                    <!-- Loops through specific list and render each item as a li -->
+                    <!-- Dynamic classes are used for styling (using attribute/data binding) -->
+                    <li v-for="book in favBooks" :class="{ fav: book.isFav }" @click="toggleFav(book)">
+                        <img :src="book.img" :alt="book.title">
+                        <h3>{{book.title}}</h3>
+                        <p>{{book.author}}</p>
+                    </li>
+                </div>
+
+                <!-- Show all books -->
+                <div v-else>
+                    <!-- Loops through specific list and render each item as a li -->
+                    <!-- Dynamic classes are used for styling (using attribute/data binding) -->
+                    <li v-for="book in bookList" :class="{ fav: book.isFav }" @click="toggleFav(book)">
+                        <img :src="book.img" :alt="book.title">
+                        <h3>{{book.title}}</h3>
+                        <p>{{book.author}}</p>
+                    </li>
+                </div>
+            </ul>
+        </div>
+
     </div>
     <script src="app.js"></script>
 </body>
