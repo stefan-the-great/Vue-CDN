@@ -15,17 +15,23 @@ const app = Vue.createApp({
         }
     },
     methods: {
+        // Toggles whether to show all books or none
         changeShowBooks() {
             this.showBooks = !this.showBooks
         },
+
+        // Toggles whether a book is favorite or not
         toggleFav(book) {
             book.isFav = !book.isFav
         },
+
+        // Toggles whether to show all books or only favorites
         showFavBooks() {
             this.filtered = !this.filtered
         }
     },
     computed: {
+        // Returns computed data array - only favorites from entire book list
         favBooks() {
             return this.bookList.filter((book) => book.isFav)
         }
